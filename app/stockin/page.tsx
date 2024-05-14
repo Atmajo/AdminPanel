@@ -2,22 +2,23 @@
 
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import Content from "@/components/modules/Content";
 import MenuContainer from "@/components/modules/MenuContainer";
 import React, { useState } from "react";
+import StockIn from "@/components/pages/StockIn";
 
 const page = () => {
   const router = useRouter();
   const { data: session } = useSession();
-  
-  if(!session){
+  const [menu, setMenu] = useState(true);
+
+  if (!session) {
     router.push("/");
   }
 
   return (
-    <div className="flex my-5 mx-10 gap-10">
-      <MenuContainer />
-      <Content page={"Stock In"} />
+    <div className="flex">
+      {menu && <MenuContainer page="Stock In" />}
+      <StockIn setMenu={setMenu} menu={menu} />
     </div>
   );
 };

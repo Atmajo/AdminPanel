@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import SessionWrapper from "@/components/modules/SessionWrapper";
-import Header from "@/components/modules/Header";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,12 +16,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="-z-10 h-full w-full overflow-hidden">
+    <html lang="en" className="h-full w-full overflow-hidden bg-emerald-600/90 select-none">
       <body
-        className={`${inter.className} absolute top-0 h-screen w-screen z-[-2] bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]`}
+        className={`${inter.className}`}
       >
         <SessionWrapper>
-          <Header />
           <div>{children}</div>
         </SessionWrapper>
       </body>

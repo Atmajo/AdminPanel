@@ -1,28 +1,53 @@
 "use client";
 
+import axios from "axios";
 import Link from "next/link";
 import React, { useState } from "react";
+import { v4 as uuid } from "uuid";
+import { useRouter } from "next/navigation";
 
 const page = () => {
+  const router = useRouter();
+  const [file, setFile] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState("");
   const [form, setForm] = useState({
+    id: "",
     name: "",
     email: "",
+    url: "",
     password: "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+  const handleImageChange = (e: any) => {
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
+    setPreviewUrl(URL.createObjectURL(selectedFile));
 
     setForm((prev) => ({
       ...prev,
+      url: previewUrl,
+    }));
+  };
+  
+  const handleChange = (e: any) => {
+    const { name, value } = e.target;
+    
+    setForm((prev) => ({
+      ...prev,
       [name]: value,
+      id: uuid(),
     }));
   };
 
-  const handleSubmit = () => {
-    console.log(form);
+  const handleSubmit = async () => {
+    try {
+      await axios.post("/api/register", form);
+      router.push("/");
+    } catch (error) {
+      console.log(error);
+    }
   };
-
+  
   return (
     <div className="flex justify-center items-center mt-48">
       <div className="border rounded-lg p-5">
@@ -73,6 +98,16 @@ const page = () => {
                 type="password"
                 onChange={handleChange}
               />
+            </div>
+          </div>
+          <div className="md:flex md:items-center mb-6">
+            <div className="md:w-1/3">
+              <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                Image
+              </label>
+            </div>
+            <div className="md:w-2/3">
+              <input type="file" src="" alt="" onChange={handleImageChange} />
             </div>
           </div>
           <div className="md:flex md:items-center mb-6">

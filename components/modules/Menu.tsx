@@ -7,7 +7,7 @@ const Menu = ({ title, icon, redirect }: menu_type) => {
   const router = useRouter();
   return (
     <div
-      className="flex flex-col gap-1 items-center hover:bg-gray-300/20 p-2 rounded-lg cursor-pointer"
+      className="flex gap-1 items-center hover:bg-gray-300/20 rounded-lg cursor-pointer"
       onClick={() => {
         router.push(redirect);
       }}

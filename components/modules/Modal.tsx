@@ -13,19 +13,18 @@ const Modal = ({ modal, setModal, id, item }: modal_type) => {
     mfgcost: "",
     price: "",
   });
-  
+
   const handleUpdate = async () => {
     try {
-      await axios
-        .put("http://localhost:3030/api/updateStocks", data)
-        .catch((err) => {
-          console.log(err);
-        });
+      await axios.post("/api/stocks/updatestocks", data).catch((err) => {
+        console.log(err);
+      });
+      alert("Updated Successfully");
     } catch (error) {
       console.log(error);
     }
   };
-  
+
   return (
     item.id === id && (
       <div className="absolute z-50 translate-x-[25%] w-[1000px] h-[400px] p-5 bg-gray-200 rounded-lg text-black shadow-md">
